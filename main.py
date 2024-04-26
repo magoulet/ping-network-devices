@@ -15,22 +15,22 @@ def main():
     logger = logging.getLogger()
 
     # Get printer IP and port from config
-    printer_ip = config['device']['ip']
-    printer_port = config['device']['port']
+    ip = config['resource']['ip']
+#    port = config['resource']['port']
 
-    # Ping the printer and log the results
+    # Ping the device and log the results
     while True:
         try:
-            result = ping(printer_ip, timeout=3)
+            result = ping(ip, timeout=3)
             if result is not None:
-                logger.info(f'Device is online. Response time: {result:.4f} ms')
+                logger.info(f'Ping successful. Response time: {result:.4f} ms')
             else:
-                logger.warning('Device is offline')
+                logger.warning('** No Ping response **')
         except Exception as e:
-            logger.error(f'Error pinging the device: {e}')
+            logger.error(f'Error pinging the resource: {e}')
 
         # Wait before the next ping
-        time.sleep(5*60)
+        time.sleep(5)
 
 if __name__ == '__main__':
     main()
